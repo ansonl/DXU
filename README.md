@@ -3,7 +3,7 @@
 ## Improved/Updated DXU resources are in the `DXU improvements` folder. 
 
 - DXU functionality is possible in Marlin 2 with the code updates in Marlin [PR#24553](https://github.com/MarlinFirmware/Marlin/pull/24553)
-  - Please support the PR by commenting 
+  - *Please support the PR for inclusion into the main Marlin 2 code by commenting on the PR.*
   - Latest Marlin 2 firmware compatible with DXU is at [ansonl/Marlin-DXU](https://github.com/ansonl/Marlin-DXU)
     - You must manually determine second extruder X/Y/Z offset in `Marlin/Configuration.h` before compiling firmware. 
       - Compile the firmware and manually run toolchange Gcode via serial connection (T0->T1 `EVENT_GCODE_TOOLCHANGE_T1` /T1->T0 `EVENT_GCODE_TOOLCHANGE_T0`) to determine if any offsets need adjusting
