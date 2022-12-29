@@ -5,6 +5,11 @@
 1. Dock adapted for UMO+ frame
 2. Heater clamps with 1mm thin jaws. The linked Taobao seller sells a quality all metal hotend but the heatsink flanges are only 1mm vs 2mm apart. The seller says he can do a special order of heatsinks with 2mm flange spacing with a minimum order quantity of 50. 
 3. Cura profile with calibration and improvements for DXU UMO+ are merged into Cura. 
+4. Marlin 2 firmware for DXU
+
+## Marlin 2.1.2 currently breaks tool changes for DXU due to nozzle wipe-on-change issue [Marlin#25117](https://github.com/MarlinFirmware/Marlin/issues/25117)! Please see issue linked for info and possible fixes. 
+
+### Marlin 2 configuration directions:
 
 - DXU functionality is possible in Marlin 2 with the code updates in Marlin [PR#24553](https://github.com/MarlinFirmware/Marlin/pull/24553)
   - *Please support the PR for inclusion into the main Marlin 2 code by commenting on the PR.*
