@@ -9,7 +9,9 @@ Premade gcode is created for Ultimaker Original+ size printer with UM2+ upgrades
 - Uses 100mm/s and 10000mm/s^2 for speed and acceleration.
 - Uses 220C for nozzle.
 
-My UMO+ with DXU input shaping settings:
+For before/after comparison, print the "no_IS" version of the ringing_tower gcode to test the entire ringing tower model at your firmware's set input shaping settings without any change with M593 at each layer. 
+
+My UMO+ with original DXU design input shaping settings:
 X freq 45hz
 Y freq 40hz
 damping factor 0.15
