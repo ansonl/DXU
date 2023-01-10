@@ -1,6 +1,6 @@
 # DXU - Dual Extrusion Upgrade for Ultimaker Original+ and Ultimaker 2+
 
-## Improved/Updated DXU resources are in the `DXU improvements` folder. 
+## Improved/Updated DXU resources are in the `AL-*` folders. 
 
 1. Dock adapted for UMO+ frame
 2. Heater clamps with 1mm thin jaws. The linked Taobao seller sells a quality all metal hotend but the heatsink flanges are only 1mm vs 2mm apart. The seller says he can do a special order of heatsinks with 2mm flange spacing with a minimum order quantity of 50. 
