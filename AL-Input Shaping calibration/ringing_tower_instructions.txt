@@ -2,8 +2,9 @@ Slice and run ringing_tower.stl model on your printer.
 - Slice in vase/spiralize mode. Do not rotate.
 - Set high acceleration and speed to show ringing. 
 - Change input shaping frequency on each layer with M593. 
+- https://marlinfw.org/docs/gcode/M593.html
 
-See which height produces the best results and set the best frequencies. 
+See which height produces the best results and set the best frequencies. https://www.th3dstudio.com/marlin-input-shaping-calculator/
 
 Premade gcode is created for Ultimaker Original+ size printer with UM2+ upgrades and should work for UM2+. 
 - Uses 100mm/s and 10000mm/s^2 for speed and acceleration.
