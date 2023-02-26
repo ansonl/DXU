@@ -16,3 +16,8 @@ My UMO+ with original DXU design input shaping settings:
 X freq 45hz
 Y freq 40hz
 damping factor 0.15
+
+UMO+ with DXUv2 + BLTouch mounted
+X freq 41hz
+Y freq 36hz
+damping factor 0.15
