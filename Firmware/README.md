@@ -16,8 +16,6 @@ Determine your own PID by running [M303](https://marlinfw.org/docs/gcode/M303.ht
 | DXU all-metal | `M301 P10.85 I1.08 D27.33` |
 | DXUv2 non-lifting nozzle (left) | `M301 E0 P15.15 I1.78 D32.26` |
 | DXUv2 lifting nozzle (left) | `M301 E1 P15.53 I1.79 D33.71` |
-| DXU | `M301` |
-| DXU | `M301` |
 
 #### Heated bed PID values using Ultimaker 120 W heated bed
 
