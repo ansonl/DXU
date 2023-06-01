@@ -11,15 +11,24 @@ Firmware source code customized for 3D printers
 | UMO+/UM2/UM2+ w/ DXU | `ULTIMAINBOARD` | [ansonl/Marlin:dxu-ultimaker-ultimainboard-2](https://github.com/ansonl/Marlin/tree/dxu-ultimaker-ultimainboard-2) |
 | UMO+/UM2/UM2+ w/ DXU | `BTT_OCTOPUS_PRO_V1_0` | [ansonl/Marlin:dxu-ultimaker-btt-octopus-pro-1](https://github.com/ansonl/Marlin/tree/dxu-ultimaker-btt-octopus-pro-1) |
 
-### Firmware changes in each branch versus *MarlinFirmware/Marlin* upstream 
+*If you have a modified Marlin 2 firmware that you would like to add to this list, please add it in a PR.*
+
+### Firmware notes for each branch versus *MarlinFirmware/Marlin* upstream 
 
 #### ansonl/Marlin:dxu-ultimaker-ultimainboard-2
-- N/A, all merged upstream.
+- https://github.com/MarlinFirmware/Marlin/issues/25117 - Marlin 2.1.2 Input Shaping may skip steps on AVR at high speeds > 250mm/s.
 
 #### ansonl/Marlin:dxu-ultimaker-btt-octopus-pro-1
 - Pins changes
   - `pins_BTT_OCTOPUS_PRO_V1_0.h`
   - `pins_BTT_OCTOPUS_V1_common.h`
-- OTA Firmware update via SDIO card update https://github.com/MarlinFirmware/Marlin/pull/25683
+- https://github.com/MarlinFirmware/Marlin/pull/25683 - OTA Firmware update via SDIO card update
 
-### If you have a modified Marlin 2 firmware that you would like to add to this list, please add it in a PR. 
+### Merged to upstream
+- https://github.com/MarlinFirmware/Marlin/pull/23466
+- https://github.com/MarlinFirmware/Marlin/pull/24553
+- https://github.com/MarlinFirmware/Marlin/pull/24797
+- https://github.com/MarlinFirmware/Marlin/pull/25399
+- https://github.com/MarlinFirmware/Marlin/pull/25707
+
+
