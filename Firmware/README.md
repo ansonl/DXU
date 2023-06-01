@@ -3,6 +3,49 @@ Configurations for UMO+, UM2, UM2+ merged upstream to MarlinFirmware/Configurati
 
 These configurations are automatically merged with Configuration file version updates so accuracy is not guaranteed. All configurations can be used on single extruder printers by changing the extruder count from 2 to 1 and commenting out the multi extruder, thermistor, and extruder defines.
 
+### Pretested PID values
+
+Determine your own PID by running [M303](https://marlinfw.org/docs/gcode/M303.html) or use the below values as reference.
+
+#### Hotend PID values using 35 W heater cartridge
+
+| Printhead | PID values in Gcode. Save to EEPROM with `M500` |
+| --- | --- |
+| Stock UM2+ | `M301 P8.86 I0.68 D28.86` |
+| DXU PTFE with PI spacer | `M301 P13.95 I1.77 D27.42` |
+| DXU all-metal | `M301 P10.85 I1.08 D27.33` |
+| DXUv2 non-lifting nozzle (left) | `M301 E0 P15.15 I1.78 D32.26` |
+| DXUv2 lifting nozzle (left) | `M301 E1 P15.53 I1.79 D33.71` |
+| DXU | `M301` |
+| DXU | `M301` |
+
+#### Heated bed PID values using Ultimaker 120 W heated bed
+
+| Printhead | PID values in Gcode. Save to EEPROM with `M500` |
+| --- | --- |
+| Stock UM glass bed | `M304 P124.55 I23.46 D165.29` |
+| Textured PEI on magnetic metal sheet | `M304 D372.47 I14.05 P88.61` |
+
+### EStep (steps/mm) Calibration
+
+Determine your extruder steps/mm to avoid over/under extrusion. Even stock and clone extruders have variances that deviate from default steps/mm values!
+
+| Extruder | steps/mm with 1.8°/step (UMO+/UM2+ extruder motor) | steps/mm with 0.9°/step (UM2 extruder motor) |
+| --- | --- | --- |
+| UM2+ Extruder | `M92 E369` | `M92 E738` |
+| UM2+ Extruder (aliexpress) | `M92 E357` - `M92 E360` | `M92 E715` - `M92 E720` |
+
+1. Disconnect bowden tube and printhead from extruder. 
+2. Disable Cold Extrude protection. `M302 P`
+3. Set current extruder position in software to 0. `G92 E0`
+4. Feed filament into extruder. Mark the location on the filament that sticks out from the extruder filament output hole using a sharpie. 
+5. Move 100m of filament forward. `G0 E100 F10`
+6. Mark location of filament that sticks out from the extruder filament output hole.
+7. Measure distance between markings to determine actual distance of filament moved forward.
+8. Calculate correct steps/mm manually or `corrected esteps = current esteps * (actual distance in mm)/100mm` or use [TH3D EStep Calculator](https://www.th3dstudio.com/estep-calculator/)
+9. Set new steps/mm `M92 E<esteps>` e.g. `M92 E369`.
+10. Return to step 3 and verify 100m of filament is actually moved.
+
 ## Marlin 2 Firmware 
 Firmware source code customized for 3D printers
 
