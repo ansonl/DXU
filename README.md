@@ -28,8 +28,9 @@ https://community.ultimaker.com/topic/24553-dxu-another-dual-extrusion-upgrade-f
 
 ### CREDITS:
 
-##### Original DXU:  
+##### DXU:  
 Original DXU by yyh1002
+DXU variant by benleo888
 ##### Hardware:  
 Lever action is inspired by Ultimaker 3.   
 ##### Firmware:   
