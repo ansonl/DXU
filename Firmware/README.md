@@ -3,7 +3,7 @@ Configurations for UMO+, UM2, UM2+ merged upstream to MarlinFirmware/Configurati
 
 These configurations are automatically merged with Configuration file version updates so accuracy is not guaranteed. All configurations can be used on single extruder printers by changing the extruder count from 2 to 1 and commenting out the multi extruder, thermistor, and extruder defines.
 
-### Pretested PID values
+### PID Values Calibration
 
 Determine your own PID by running [M303](https://marlinfw.org/docs/gcode/M303.html) or use the below values as reference.
 
