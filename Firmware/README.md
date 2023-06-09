@@ -72,4 +72,39 @@ Firmware source code customized for 3D printers
 - https://github.com/MarlinFirmware/Marlin/pull/25399
 - https://github.com/MarlinFirmware/Marlin/pull/25707
 
+## Cura printer settings
+
+```json
+"overrides": {
+        "machine_disallowed_areas": {
+            "default_value": [
+                [[100,  -102.5], [ 110,  -102.5], [ 110,  -62.5], [100,  -62.5]]
+            ]
+        },
+        "machine_width": { "default_value": 220 },
+        "machine_depth": { "default_value": 205 },
+        "machine_height": { "default_value": 200 },
+        "machine_head_with_fans_polygon": {
+            "default_value": [
+                [-46, 30],
+                [-46, -34],
+                [66, 30],
+                [66, -34]
+            ]
+        },
+        "machine_nozzle_heat_up_speed": {
+            "default_value": 1.4
+        },
+        "machine_nozzle_cool_down_speed": { 
+            "default_value": 0.8
+        },
+        "machine_nozzle_size": {
+            "default_value": 0.4
+        },
+        "material_diameter": {
+            "default_value": 1.75
+        }
+    }
+  ```
+
 
