@@ -21,3 +21,11 @@ UMO+ with DXUv2 + BLTouch mounted
 X freq 41hz
 Y freq 36hz
 damping factor 0.15
+
+UM2+ stock
+X freq 51hz
+Y freq 48hz
+
+UM2+ octopus pro
+X freq 52hz
+Y freq 47hz
