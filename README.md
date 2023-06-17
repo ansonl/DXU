@@ -1,16 +1,14 @@
 # DXU - Dual Extrusion Upgrade for Ultimaker Original+ and Ultimaker 2+
 
-## Improved DXUv2 files are now available
+### [Marlin 2 firmware + configurations for DXU](https://github.com/ansonl/DXU/blob/master/Firmware/README.md) 
 
-1. DXUv2 reuses the stock Ultimaker printhead metal parts for a more compact and durable printhead.
+### [DXUv2 3D printable files](https://github.com/ansonl/DXU/tree/master/AL-DXUv2)
+
+- DXUv2 reuses the stock Ultimaker printhead metal parts for a more compact and durable printhead.
 
 ![DXU front](gallery/DXU-front.JPG)
 
 ### Improved/Updated DXU resources are in the `AL-*` folders. 
-
-## Marlin 2.1.2 Input Shaping skips steps at high speeds  [Marlin#25117](https://github.com/MarlinFirmware/Marlin/issues/25117)! Please see issue linked for info and possible fixes. 
-
-- DXU functionality is possible in Marlin 2 with the following code improvements in Marlin [PR#24553](https://github.com/MarlinFirmware/Marlin/pull/24553), [PR#24797](https://github.com/MarlinFirmware/Marlin/pull/24797), [PR#25399](https://github.com/MarlinFirmware/Marlin/pull/25399), [PR#23466](https://github.com/MarlinFirmware/Marlin/pull/23466)
 
 ## Notes for original DXU
 
@@ -30,8 +28,10 @@ https://community.ultimaker.com/topic/24553-dxu-another-dual-extrusion-upgrade-f
 
 ### CREDITS:
 
-##### Original DXU:  
+##### DXU:  
 Original DXU by yyh1002
+
+DXU variant by benleo888
 ##### Hardware:  
 Lever action is inspired by Ultimaker 3.   
 ##### Firmware:   
