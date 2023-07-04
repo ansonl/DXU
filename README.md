@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-- ### [Marlin 2 firmware + configuration instructions for DXUv2](https://github.com/ansonl/DXU/blob/master/Firmware/README.md) 
+- ### [Marlin 2 firmware, calibration, and configuration instructions for DXUv2](https://github.com/ansonl/DXU/blob/master/Firmware/README.md) 
 
 - ### [DXUv2 3D printable files](https://github.com/ansonl/DXU/tree/master/AL-DXUv2)
 
