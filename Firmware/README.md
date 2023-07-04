@@ -44,12 +44,16 @@ Determine your extruder steps/mm to avoid over/under extrusion. Even stock and c
 9. Set new steps/mm `M92 E<esteps>` e.g. `M92 E369`.
 10. Return to step 3 and verify 100m of filament is actually moved.
 
-### Hotend Offset X/Y Calibration
+### Hotend Offset Calibration
+
+Stock hotend offset values for the second extruder are `M218 T1 X18 Y0 Z-2`
+
+#### Hotend Offset X/Y Calibration
 
 1. Print dual X/Y calibration print [here](https://www.thingiverse.com/thing:1741265) or in the `AL-Hotend Calibration folder`.
-2. Compare print results and set hotend offsets with [`M218`](https://marlinfw.org/docs/gcode/M218.html). Stock values are `M218 T1 X18 Y0`
+2. Compare print results and set hotend offsets with [`M218`](https://marlinfw.org/docs/gcode/M218.html). `M218 T1 XNNN YNNN`
 
-### Hotend Offset Z Calibration
+#### Hotend Offset Z Calibration
 
 1. Switch to first extruder. `T0`
 2. Home Z axis. Optionally home X/Y axis and move printhead to center of X/Y. `G28` `G0 X100 Y100`
@@ -57,7 +61,7 @@ Determine your extruder steps/mm to avoid over/under extrusion. Even stock and c
 4. Move Z axis down at least `5 mm` to make space for the second extruder. `G0 Z5`
 5. Manually activate second extruder with your hand or a tool. Do not activate with toolchange gcode `T1` unless the `HOTEND_OFFSET_Z` for the second extruder is set to `0`.
 6. Move Z axis up until the physical distance between the second nozzle and bed are the same as the physical distance between the first nozzle and bed that you remembered earlier. Use a paper/gauge to get the right distance. Use the negative values of the Z position reported by the printer software as the `HOTEND_OFFSET_Z` for the second extruder. E.g. If the reported Z position is 2.5 mm, use -2.5 mm. 
-7. Set new hotend Z offset with `M218`. `M218 T1 Z-NEWVALUE`
+7. Set new hotend Z offset with `M218`. `M218 T1 ZNNNN`
 
 ## Marlin 2 Firmware 
 Firmware source code customized for 3D printers
