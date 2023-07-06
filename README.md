@@ -1,10 +1,12 @@
 # DXU - Dual Extrusion Upgrade for Ultimaker Original+ and Ultimaker 2+
 
-### [Marlin 2 firmware + configurations for DXU](https://github.com/ansonl/DXU/blob/master/Firmware/README.md) 
+## Table of Contents
 
-### [DXUv2 3D printable files](https://github.com/ansonl/DXU/tree/master/AL-DXUv2)
+- ### [Marlin 2 firmware, calibration, and configuration instructions for DXUv2](https://github.com/ansonl/DXU/blob/master/Firmware/README.md) 
 
-- DXUv2 reuses the stock Ultimaker printhead metal parts for a more compact and durable printhead.
+- ### [DXUv2 3D printable files](https://github.com/ansonl/DXU/tree/master/AL-DXUv2)
+
+  - DXUv2 reuses the stock Ultimaker printhead metal parts for a more compact and durable printhead.
 
 ![DXU front](gallery/DXU-front.JPG)
 
@@ -17,11 +19,6 @@
 3. Heater clamps with 1mm thin jaws. The linked Taobao seller sells a quality all metal hotend but the heatsink flanges are only 1mm vs 2mm apart. The seller says he can do a special order of heatsinks with 2mm flange spacing with a minimum order quantity of 50. 
 4. Cura profile with calibration and improvements for DXU UMO+ are merged into Cura. 
 5. Input Shaping calibration gcode and presets. 
-
-### Marlin 2 configuration directions:
-
-
-  - Determine second extruder Z offset by manually adjusting Z position while `T0` is selected in firmware and `T1` is physically active.
 
 ### DISCUSSION:
 https://community.ultimaker.com/topic/24553-dxu-another-dual-extrusion-upgrade-for-um2/
