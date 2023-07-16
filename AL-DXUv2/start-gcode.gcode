@@ -58,31 +58,33 @@ G1 Y150 F7200
 ; Prime routine for T1 in normally 
 T1 ; move to the nozzle 2
 G0 Z10 F2400 ; move the platform down to 10mm
-M109 T1 S{material_print_temperature_layer_0, 1} ; Heat up and wait for T1
+M109 T1 S{material_print_temperature, 1} ; Heat up and wait for T1
 G0 Y150 F7200 ; Move printhead to safe Y location to move right.
 G0 Y1 F7200 ; Add HOTEND_OFFSET_Y[1] to Y0 (or forward-most safe Y location when T1 is active) to get Gcode Y parameter
 G1 X235 Y10 Z0.3 F2400 ; Add HOTEND_OFFSET_X[1] to X217 (or right-most safe X location when T1 is active) to get actual Gcode X parameter.
 G92 E0 ; reset E location
+M104 T1 S{material_final_print_temperature, 1} ; Start cooling down nozzle to reduce oozing
 G1 Y70 E9 F1000 ; intro line
+M104 T1 S{material_standby_temperature, 1}
 G92 E0 
 G1 E-{retraction_amount, 1} F1500 ; retract
 G0 Y100 F18000 ; break line
 G0 Y150 Z10 F2400 ; raise nozzle
-M104 T1 S{material_standby_temperature, 1}
 ; Prime routine for T0
 T0 ; move to the nozzle 1
 G0 Z10 F2400
-M109 T0 S{material_print_temperature_layer_0, 0}
+M109 T0 S{material_print_temperature, 0}
 G0 Y150 F7200 ; Move printhead to safe Y location to move right.
 G0 Y0 F7200 ;change Y20 to Y0 ansonl
 G1 X217 Y15 Z0.3 F2400
 G92 E0 ; reset E location
+M104 T0 S{material_final_print_temperature, 0} ; Start cooling down nozzle to reduce oozing
 G1 Y75 E9 F1000 ; intro line
+M104 T0 S{material_standby_temperature, 0}
 G92 E0
 G1 E-{retraction_amount, 0} F1500 ; retract
 G0 Y105 F18000 ; break line
 G0 Y150 Z10 F2400 ; raise nozzle
-M104 T0 S{material_standby_temperature, 0}
 ; Final prime and wipe sequence for initial extruder (usually T0)
 M104 T{initial_extruder_nr} S{material_print_temperature_layer_0, initial_extruder_nr} ; Start heating initial nozzle. Do not wait.
 T{initial_extruder_nr} ; move to the initial nozzle used for print
