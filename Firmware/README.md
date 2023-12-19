@@ -34,10 +34,10 @@ Determine your extruder steps/mm to avoid over/under extrusion. Even stock and c
 | UM2+ Extruder (aliexpress) | `M92 E357` - `M92 E360` | `M92 E715` - `M92 E720` |
 
 1. Disconnect bowden tube and printhead from extruder. 
-2. Disable Cold Extrude protection. `M302 P`
+2. Disable Cold Extrude protection. `M302 P1`
 3. Set current extruder position in software to 0. `G92 E0`
 4. Feed filament into extruder. Mark the location on the filament that sticks out from the extruder filament output hole using a sharpie. 
-5. Move 100m of filament forward. `G0 E100 F10`
+5. Move 100 mm of filament forward. `G0 E100 F100`
 6. Mark location of filament that sticks out from the extruder filament output hole.
 7. Measure distance between markings to determine actual distance of filament moved forward.
 8. Calculate correct steps/mm manually or `corrected esteps = current esteps * (actual distance in mm)/100mm` or use [TH3D EStep Calculator](https://www.th3dstudio.com/estep-calculator/)
