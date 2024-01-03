@@ -63,6 +63,10 @@ Stock hotend offset values for the second extruder are `M218 T1 X18 Y0 Z-2`
 6. Move Z axis up until the physical distance between the second nozzle and bed are the same as the physical distance between the first nozzle and bed that you remembered earlier. Use a paper/gauge to get the right distance. Use the negative values of the Z position reported by the printer software as the `HOTEND_OFFSET_Z` for the second extruder. E.g. If the reported Z position is 2.5 mm, use -2.5 mm. 
 7. Set new hotend Z offset with `M218`. `M218 T1 ZNNNN`
 
+### Save Printer Settings
+
+Save settings to persistent storage on board the printer EEPROM with `M500`
+
 ## Marlin 2 Firmware 
 Firmware source code customized for 3D printers
 
