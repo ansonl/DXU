@@ -76,8 +76,6 @@ Configuration macros to change in Marlin are `EVENT_GCODE_TOOLCHANGE_T0` and `EV
 | UMO+ | `T0` | `G90\nG0 X211 F7200\nG0 Y167\nG0 X217 F1800\nG0 Y182\nG0 X211\nG0 Y166 F7200` |
 | UMO+ | `T1` | `G90\nG0 X211 F7200\nG0 Y198\nG0 X219 F1800\nG0 Y181\nG0 X211\nG0 Y166 F7200` |
 
-
-
 ### Save Printer Settings
 
 Save settings to persistent storage on board the printer EEPROM with `M500`
