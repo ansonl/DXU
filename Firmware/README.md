@@ -63,6 +63,21 @@ Stock hotend offset values for the second extruder are `M218 T1 X18 Y0 Z-2`
 6. Move Z axis up until the physical distance between the second nozzle and bed are the same as the physical distance between the first nozzle and bed that you remembered earlier. Use a paper/gauge to get the right distance. Use the negative values of the Z position reported by the printer software as the `HOTEND_OFFSET_Z` for the second extruder. E.g. If the reported Z position is 2.5 mm, use -2.5 mm. 
 7. Set new hotend Z offset with `M218`. `M218 T1 ZNNNN`
 
+### Toolchange G-code
+
+The movement commands to switch between the extruders can be set in firmware or the slicer. I recommend setting this in firmware rather than in the slicer. This way the toolchange action and offset compensation is completely handled by firmware and you do not need to remember to set up the special movements and offsets in every slicer you use (if the slicer even has support for it). When the toolchange is set in the firmware, all that is needed to change a tool is calling `TXX` where `XX` is the new extruder index starting from `0`. 
+
+Configuration macros to change in Marlin are `EVENT_GCODE_TOOLCHANGE_T0` and `EVENT_GCODE_TOOLCHANGE_T1`. All movements are based off of hotend 0's offset which should be `0,0,0`. Otherwise there would be no way to know which hotend offset is being switched from if there are more than 2 hotends. Marlin will translate the movement by the current hotend offset. 
+
+| Printer Case | Extruder | Toolchange G-code |
+| --- | --- | --- |
+| UM2/UM2+ | `T0` | `G90\nG0 X214 F7200\nG0 Y178\nG0 X219 F1800\nG0 Y194.5\nG0 X214\nG0 Y169 F7200` |
+| UM2/UM2+ | `T1` | `G90\nG0 X214 F7200\nG0 Y209\nG0 X220 F1800\nG0 Y193\nG0 X214\nG0 Y169 F7200` |
+| UMO+ | `T0` | `G90\nG0 X211 F7200\nG0 Y167\nG0 X217 F1800\nG0 Y182\nG0 X211\nG0 Y166 F7200` |
+| UMO+ | `T1` | `G90\nG0 X211 F7200\nG0 Y198\nG0 X219 F1800\nG0 Y181\nG0 X211\nG0 Y166 F7200` |
+
+
+
 ### Save Printer Settings
 
 Save settings to persistent storage on board the printer EEPROM with `M500`
