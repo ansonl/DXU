@@ -78,6 +78,7 @@
         "material_diameter": { "default_value": 1.75 },
         "prime_tower_position_x": { "value": "180" },
         "prime_tower_position_y": { "value": "160" },
+        "relative_extrusion": { "enabled": true },
         "retraction_amount": { "default_value": 3 },
         "retraction_min_travel": { "value": "line_width * 2" },
         "retraction_speed": { "default_value": 25 },
