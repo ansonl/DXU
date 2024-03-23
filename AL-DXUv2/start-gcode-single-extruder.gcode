@@ -44,6 +44,7 @@
 ; switch_extruder_retraction_amount_1={switch_extruder_retraction_amount, 1}
 
 ; DXUv2 improved start priming Gcode for dual nozzles for single material print by ansonl
+; prime height is set to 0.301 so that octolapse priming height can be set to 0.301 to allow first layer detection
 M355 S1 P25 ; Turn on case light dim
 M190 S{material_bed_temperature_layer_0}
 G28 ; Home all
@@ -63,11 +64,11 @@ G0 Z10 F2400
 M109 T{initial_extruder_nr} S{material_print_temperature, initial_extruder_nr}
 G0 Y150 F7200 ; Move printhead to safe Y location to move right.
 G0 X32 Y3 F7200
-G0 X77 Z0.3 F2400
+G0 X77 Z0.31 F2400
 G92 E0 ; reset E location
-G1 X207 Y3 Z0.3 E{switch_extruder_retraction_amount, initial_extruder_nr} F1500
+G1 X207 Y3 Z0.31 E{switch_extruder_retraction_amount, initial_extruder_nr} F1500
 G3 X217 Y13 I0 J10 F7200
-G0 X217 Y13 Z0.3 F7200
+G0 X217 Y13 Z0.31 F7200
 ; do not cool down nozzle
 G92 E0 ; reset E location
 G1 Y72 E3 F1000 ; intro line
@@ -90,8 +91,8 @@ G0 Y9.4 Z0.5 E3 F7200
 G2 X212 Y3.4 Z0.4 I-6 J0 F7200
 M104 T{initial_extruder_nr} S{material_print_temperature_layer_0, initial_extruder_nr} ; Start heating to first layer temp
 G0 X207 Y3.4 Z0.4 F7200
-G2 X205 Y5.4 Z0.3 I0 J2 F7200
-G0 X205 Y5.4 Z0.3 F7200
+G2 X205 Y5.4 Z0.31 I0 J2 F7200
+G0 X205 Y5.4 Z0.31 F7200
 G1 Y10 F18000 ; break line
 G92 E0
 G1 Y50 E2 F1000 ; extrude line
