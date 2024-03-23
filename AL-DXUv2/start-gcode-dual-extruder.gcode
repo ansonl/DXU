@@ -40,13 +40,17 @@
 ; material_bed_temperature={material_bed_temperature}
 ; material_print_temperature={material_print_temperature}
 ; material_print_temperature_layer_0={material_print_temperature_layer_0}
+; switch_extruder_retraction_amount_0={switch_extruder_retraction_amount, 0}
+; switch_extruder_retraction_amount_1={switch_extruder_retraction_amount, 1}
 
 ; DXUv2 improved start priming Gcode for dual nozzles for multi-material print
 M355 S1 P25 ; Turn on case light dim
 M190 S{material_bed_temperature_layer_0}
 G28 ; Home all
+;M420 S1 ; Enable and load bed mesh
 G29 ; Run automatic bed leveling. Comment this line out if auto bed leveling is not desired.
 M104 T0 S{material_standby_temperature, 0} ; Preheat T0 to standby temp
+M104 T1 S{material_standby_temperature, 1} ; Preheat T1 to standby temp
 G21 ; Metric values
 G90 ; Absolute positioning
 M82 ; Set extruder to absolute mode
@@ -57,48 +61,68 @@ G0 X200 F7200 ; Move to safe X and Y location from right side after ending ABL h
 G1 Y150 F7200
 ; Prime routine for T1 in normally 
 T1 ; move to the nozzle 2
+M104 T1 S{material_final_print_temperature, 1} ; Start heating up T1
 G0 Z10 F2400 ; move the platform down to 10mm
 M109 T1 S{material_print_temperature, 1} ; Heat up and wait for T1
 G0 Y150 F7200 ; Move printhead to safe Y location to move right.
-G0 Y1 F7200 ; Add HOTEND_OFFSET_Y[1] to Y0 (or forward-most safe Y location when T1 is active) to get Gcode Y parameter
-G1 X235 Y10 Z0.3 F2400 ; Add HOTEND_OFFSET_X[1] to X217 (or right-most safe X location when T1 is active) to get actual Gcode X parameter.
+G0 X50 Y1 F7200 ; Add HOTEND_OFFSET_Y[1] to Y0 (or forward-most safe Y location when T1 is active) to get Gcode Y parameter
+G0 X95 Z0.3 F2400 ; lower nozzle
 G92 E0 ; reset E location
+G1 X225 Y1 Z0.3 E{switch_extruder_retraction_amount, 1} F1500 ; Add HOTEND_OFFSET_X[1] to X217 (or right-most safe X location when T1 is active) to get actual Gcode X parameter.
+G3 X235 Y11 I0 J10 F7200
+G0 X235 Y11 Z0.3 F7200
 M104 T1 S{material_final_print_temperature, 1} ; Start cooling down nozzle to reduce oozing
-G1 Y70 E9 F1000 ; intro line
+G92 E0
+G1 Y70 E3 F1000 ; intro line
 M104 T1 S{material_standby_temperature, 1}
 G92 E0 
-G1 E-{retraction_amount, 1} F1500 ; retract
-G0 Y100 F18000 ; break line
+G1 E-{switch_extruder_retraction_amount, 1} F1200 ; retract
+G0 Y105 F18000 ; break line
 G0 Y150 Z10 F2400 ; raise nozzle
 ; Prime routine for T0
 T0 ; move to the nozzle 1
+M104 T0 S{material_final_print_temperature, 0} ; Start heating up T0
 G0 Z10 F2400
 M109 T0 S{material_print_temperature, 0}
 G0 Y150 F7200 ; Move printhead to safe Y location to move right.
-G0 Y0 F7200 ;change Y20 to Y0 ansonl
-G1 X217 Y15 Z0.3 F2400
+G0 X32 Y3 F7200
+G0 X77 Z0.3 F2400
 G92 E0 ; reset E location
+G1 X207 Y3 Z0.3 E{switch_extruder_retraction_amount, 0} F1500
+G3 X217 Y13 I0 J10 F7200
+G0 X217 Y13 Z0.3 F7200
 M104 T0 S{material_final_print_temperature, 0} ; Start cooling down nozzle to reduce oozing
-G1 Y75 E9 F1000 ; intro line
+G92 E0 ; reset E location
+G1 Y72 E3 F1000 ; intro line
 M104 T0 S{material_standby_temperature, 0}
+M104 T{initial_extruder_nr} S{material_print_temperature, initial_extruder_nr} ; Start heating initial nozzle. Do not wait.
 G92 E0
-G1 E-{retraction_amount, 0} F1500 ; retract
+G1 E-{switch_extruder_retraction_amount, 0} F1200 ; retract
 G0 Y105 F18000 ; break line
 G0 Y150 Z10 F2400 ; raise nozzle
 ; Final prime and wipe sequence for initial extruder (usually T0)
-M104 T{initial_extruder_nr} S{material_print_temperature_layer_0, initial_extruder_nr} ; Start heating initial nozzle. Do not wait.
 T{initial_extruder_nr} ; move to the initial nozzle used for print
 M400 ;finish all moves
 G0 Z20 F2400
-G0 X212 F18000
-G0 Y2 F18000
-M109 T{initial_extruder_nr} S{material_print_temperature_layer_0, initial_extruder_nr} ; Wait for heating to complete
-G0 X205 Z0.3 F2400
+G0 X212 F7200
+G0 Y70 F7200
+M109 T{initial_extruder_nr} S{material_print_temperature, initial_extruder_nr} ; Wait for initial nozzle to reach temp
 G92 E0
-G1 Y45 E6.5 F1000
+G1 E{switch_extruder_retraction_amount, initial_extruder_nr} F1200 ; prime by switching length
+G0 X217 Y50 Z0.5 F7200
+G92 E0
+G0 Y9.4 Z0.5 E3 F7200
+G2 X212 Y3.4 Z0.4 I-6 J0 F7200
+M104 T{initial_extruder_nr} S{material_print_temperature_layer_0, initial_extruder_nr} ; Start heating to first layer temp
+G0 X207 Y3.4 Z0.4 F7200
+G2 X205 Y5.4 Z0.3 I0 J2 F7200
+G0 X205 Y5.4 Z0.3 F7200
+G1 Y10 F18000 ; break line
+G92 E0
+G1 Y50 E2 F1000 ; extrude line
 G92 E0
 G1 E-0.5 F1500 ; retract slightly
 G1 Y100 F18000 ; break line
 G92 E0
-M355 S1 P128; Turn on case light brighter
+M355 S1 P255; Turn on case light brighter
 ;end of startup sequence
