@@ -70,7 +70,7 @@ G0 X{machine_width-5 if initial_extruder_nr>0 else 5+18} Y1 F7200 ; Add HOTEND_O
 G0 X{145 if initial_extruder_nr>0 else 95} Z0.31 F2400 ; lower nozzle
 G92 E0 ; reset E location
 G1 X{145-130 if initial_extruder_nr>0 else 95+130} Z0.31 E{switch_extruder_retraction_amount, 1} F1500 ; Add HOTEND_OFFSET_X[1] to X217 (or right-most safe X location when T1 is active) to get actual Gcode X parameter.
-G3 X{145-130-10 if initial_extruder_nr>0 else 95+130+10} Y11 I0 J10 F7200
+G{2 if initial_extruder_nr>0 else 3} X{145-130-10 if initial_extruder_nr>0 else 95+130+10} Y11 I0 J10 F7200
 G0 X{145-130-10 if initial_extruder_nr>0 else 95+130+10} Y11 Z0.31 F7200 ; move in case there is no arc support
 M104 T1 S{material_final_print_temperature, 0 if initial_extruder_nr>0 else 1} ; Start cooling down nozzle to reduce oozing
 G92 E0
@@ -94,7 +94,7 @@ G0 X{145 if initial_extruder_nr<1 else 95} Z0.31 F2400 ; lower nozzle
 G92 E0 ; reset E location
 G1 X{145-130 if initial_extruder_nr<1 else 95+130} Z0.31 E{switch_extruder_retraction_amount, 1} F1500 ; Add HOTEND_OFFSET_X[1] to X217 (or right-most safe X location when T1 is active) to get actual Gcode X parameter.
 G1 Y1 Z0.31 E{switch_extruder_retraction_amount, 1} F7200 ; Y correction to match other prime side
-G3 X{145-130-10 if initial_extruder_nr<1 else 95+130+10} Y11 I0 J10 F7200
+G{2 if initial_extruder_nr<1 else 3} X{145-130-10 if initial_extruder_nr<1 else 95+130+10} Y11 I0 J10 F7200
 G0 X{145-130-10 if initial_extruder_nr<1 else 95+130+10} Y11 Z0.31 F7200 ; move in case there is no arc support
 M104 T1 S{material_final_print_temperature, 0 if initial_extruder_nr<1 else 1} ; Start cooling down nozzle to reduce oozing
 G92 E0
@@ -119,10 +119,10 @@ G1 E{switch_extruder_retraction_amount, initial_extruder_nr} F1200 ; prime by sw
 G0 X{145-130-10 if initial_extruder_nr<1 else 95+130+10} F7200 Y50 Z0.5 F7200
 G92 E0
 G0 Y9.4 Z0.5 E3 F7200
-G2 X{145-130-5 if initial_extruder_nr<1 else 95+130+5} Y3.4 Z0.4 I-6 J0 F7200
+G{3 if initial_extruder_nr<1 else 2} X{145-130-5 if initial_extruder_nr<1 else 95+130+5} Y3.4 Z0.4 I-6 J0 F7200
 M104 T{initial_extruder_nr} S{material_print_temperature_layer_0, initial_extruder_nr} ; Start heating to first layer temp
 G0 X{145-130 if initial_extruder_nr<1 else 95+130} Y3.4 Z0.4 F7200
-G2 X{145-130+2 if initial_extruder_nr<1 else 95+130-2} Y5.4 Z0.31 I0 J2 F7200
+G{3 if initial_extruder_nr<1 else 2} X{145-130+2 if initial_extruder_nr<1 else 95+130-2} Y5.4 Z0.31 I0 J2 F7200
 G0 X{145-130+2 if initial_extruder_nr<1 else 95+130-2} Y5.4 Z0.31 F7200 ; move if no arc support
 G1 Y10 F18000 ; break line
 G92 E0
