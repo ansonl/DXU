@@ -47,6 +47,7 @@ Determine your extruder steps/mm to avoid over/under extrusion. Even stock and c
 ### Hotend Offset Calibration
 
 Stock hotend offset values for the second extruder are `M218 T1 X18 Y0 Z-2`
+Stock probe offset values are `NOZZLE_TO_PROBE_OFFSET { 9, -19.5, -1 }`
 
 #### Hotend Offset X/Y Calibration
 
