@@ -62,77 +62,79 @@ G1 Y150 F7200
 ; Prime routine for nozzle that is NOT the initial extruder first
 ; ----
 T{0 if initial_extruder_nr>0 else 1} ; switch to NOT initial_extruder_nr nozzle
-M104 T1 S{material_final_print_temperature, 0 if initial_extruder_nr>0 else 1} ; Start heating up the NOT initial extruder
+M104 T{0 if initial_extruder_nr>0 else 1} S{material_final_print_temperature, 0 if initial_extruder_nr>0 else 1} ; Start heating up the NOT initial extruder
 G0 Z10 F2400 ; move the platform down to 10mm
 M109 T{0 if initial_extruder_nr>0 else 1} S{material_print_temperature, 0 if initial_extruder_nr>0 else 1} ; Heat up and wait for not initial extruder
 G0 Y150 F7200 ; Move printhead to safe Y location to move right.
-G0 X{machine_width-5 if initial_extruder_nr>0 else 5+18} Y1 F7200 ; Add HOTEND_OFFSET_Y[1] to Y0 (or forward-most safe Y location when T1 is active) to get Gcode Y parameter T{machine_nozzle_offset_x,1} cannot be nested so 18 is hardcoded
-G0 X{145 if initial_extruder_nr>0 else 95} Z0.31 F2400 ; lower nozzle
+G0 X{machine_width-5 if initial_extruder_nr>0 else 5+18} Y1 F7200 ;{machine_nozzle_offset_x,1} cannot be nested so 18 is hardcoded
+G0 X{140 if initial_extruder_nr>0 else 100} Z0.31 F2400 ; lower nozzle
 G92 E0 ; reset E location
-G1 X{145-130 if initial_extruder_nr>0 else 95+130} Z0.31 E{switch_extruder_retraction_amount, 1} F1500 ; Add HOTEND_OFFSET_X[1] to X217 (or right-most safe X location when T1 is active) to get actual Gcode X parameter.
-G{2 if initial_extruder_nr>0 else 3} X{145-130-10 if initial_extruder_nr>0 else 95+130+10} Y11 I0 J10 F7200
-G0 X{145-130-10 if initial_extruder_nr>0 else 95+130+10} Y11 Z0.31 F7200 ; move in case there is no arc support
-M104 T1 S{material_final_print_temperature, 0 if initial_extruder_nr>0 else 1} ; Start cooling down nozzle to reduce oozing
+G1 X{140-125 if initial_extruder_nr>0 else 100+125} E{switch_extruder_retraction_amount, initial_extruder_nr} F1500
+G0 Y1 F7200
 G92 E0
-G1 Y70 E3 F1000 ; intro line
-M104 T1 S{material_standby_temperature, 1}
+G{2 if initial_extruder_nr>0 else 3} X{140-125-2.5 if initial_extruder_nr>0 else 100+125+2.5} Y3.5 I0 J2.5 E0.04 F7200
 G92 E0
-G1 E-{switch_extruder_retraction_amount, 1} F1200 ; retract
+G1 E1.65 Y17.5
+G92 E0
+G{3 if initial_extruder_nr>0 else 2} X{140-125-5 if initial_extruder_nr>0 else 100+125+5} Y20 I{-2.5 if initial_extruder_nr>0 else 2.5} J0 E0.04 F7200
+G92 E0
+G1 X{140-125-7.5 if initial_extruder_nr>0 else 100+125+7.5} Y20 E.3
+G92 E0
+G{2 if initial_extruder_nr>0 else 3} X{140-125-10 if initial_extruder_nr>0 else 100+125+10} Y22.5 I0 J2.5 E0.04 F7200
+G92 E0
+G1 Y70 E3.2 F1000 ; intro line
+M104 T{0 if initial_extruder_nr>0 else 1} S{material_standby_temperature if extruders_enabled_count > 1 else 0, 0 if initial_extruder_nr>0 else 1}
+G92 E0
+G1 E-{switch_extruder_retraction_amount, 0 if initial_extruder_nr>0 else 1} F1200 ; retract
 G0 Y105 F18000 ; break line
 G0 Y150 Z10 F2400 ; raise nozzle
 
 ; ----
 ; Prime routine for initial nozzle
 ; ----
-T{0 if initial_extruder_nr<1 else 1} ; switch to initial_extruder_nr nozzle
-M104 T1 S{material_final_print_temperature, 0 if initial_extruder_nr<1 else 1} ; Start heating up the NOT initial extruder
+T{initial_extruder_nr} ; switch to initial_extruder_nr nozzle
+M104 T{initial_extruder_nr} S{material_final_print_temperature, initial_extruder_nr} ; Start heating up the initial extruder
 G0 Z10 F2400 ; move the platform down to 10mm
-M109 T{0 if initial_extruder_nr<1 else 1} S{material_print_temperature, 0 if initial_extruder_nr<1 else 1} ; Heat up and wait for not initial extruder
+M109 T{initial_extruder_nr} S{material_print_temperature, initial_extruder_nr} ; Heat up and wait for not initial extruder
 G0 Y150 F7200 ; Move printhead to safe Y location to move right.
-G0 X{machine_width-5 if initial_extruder_nr<1 else 5+18} Y1.5 F7200 ; Add HOTEND_OFFSET_Y[1] to Y0 (or forward-most safe Y location when T1 is active) to get Gcode Y parameter T{machine_nozzle_offset_x,1} cannot be nested so 18 is hardcoded
-G0 X{145 if initial_extruder_nr<1 else 95} Z0.31 F2400 ; lower nozzle
+G0 X{machine_width-5 if initial_extruder_nr<1 else 5+18} Y1.5 F7200 ; {machine_nozzle_offset_x,1} cannot be nested so 18 is hardcoded
+G0 X{140 if initial_extruder_nr<1 else 100} Z0.31 F2400 ; lower nozzle
 G92 E0 ; reset E location
-G1 X{145-130 if initial_extruder_nr<1 else 95+130} Z0.31 E{switch_extruder_retraction_amount, 1} F1500 ; Add HOTEND_OFFSET_X[1] to X217 (or right-most safe X location when T1 is active) to get actual Gcode X parameter.
-G1 Y1 Z0.31 E{switch_extruder_retraction_amount, 1} F7200 ; Y correction to match other prime side
-G{2 if initial_extruder_nr<1 else 3} X{145-130-10 if initial_extruder_nr<1 else 95+130+10} Y11 I0 J10 F7200
-G0 X{145-130-10 if initial_extruder_nr<1 else 95+130+10} Y11 Z0.31 F7200 ; move in case there is no arc support
-M104 T1 S{material_final_print_temperature, 0 if initial_extruder_nr<1 else 1} ; Start cooling down nozzle to reduce oozing
+G1 X{140-124 if initial_extruder_nr<1 else 100+124} E{switch_extruder_retraction_amount, initial_extruder_nr} F1500
+G1 X{140-125 if initial_extruder_nr<1 else 100+125} F7200
+G0 Y1 F7200
 G92 E0
-G1 Y70 E3 F1000 ; intro line
-M104 T1 S{material_standby_temperature, 1}
+G{2 if initial_extruder_nr<1 else 3} X{140-125-2.5 if initial_extruder_nr<1 else 100+125+2.5} Y3.5 I0 J2.5 E0.04 F7200
 G92 E0
-G1 E-{switch_extruder_retraction_amount, 1} F1200 ; retract
+G1 E1.65 Y17.5
+G92 E0
+G{3 if initial_extruder_nr<1 else 2} X{140-125-5 if initial_extruder_nr<1 else 100+125+5} Y20 I{-2.5 if initial_extruder_nr<1 else 2.5} J0 E0.04 F7200
+G92 E0
+G1 X{140-125-7.5 if initial_extruder_nr<1 else 100+125+7.5} Y20 E.3
+G92 E0
+G{2 if initial_extruder_nr<1 else 3} X{140-125-10 if initial_extruder_nr<1 else 100+125+10} Y22.5 I0 J2.5 E0.04 F7200
+G92 E0
+G1 Y70 E3.2 F1000 ; intro line
+G92 E0
 G0 Y105 F18000 ; break line
-G0 Y150 Z10 F2400 ; raise nozzle
 
 ; ----
 ; Final prime and wipe sequence for initial extruder
 ; ----
-T{initial_extruder_nr} ; switch to the initial nozzle
+G{3 if initial_extruder_nr<1 else 2} X{140-125-10-2.5 if initial_extruder_nr<1 else 100+125+10+2.5} Y107.5 Z0.48 I0 J2.5 F18000
 M400 ;finish all moves
-G0 Z20 F2400
-G0 X{145-130-5 if initial_extruder_nr<1 else 95+130+5} F7200
-G0 Y70 F7200
-M109 T{initial_extruder_nr} S{material_print_temperature, initial_extruder_nr} ; Wait for initial nozzle to reach temp
+M104 T{initial_extruder_nr} S{material_print_temperature, initial_extruder_nr} ; Wait for initial nozzle to reach temp if needed.
+G0 Y75 F18000
+G0 Y65 F7200
+G0 X{140-125-10 if initial_extruder_nr<1 else 100+125+10} Y50 F7200
 G92 E0
-G1 E{switch_extruder_retraction_amount, initial_extruder_nr} F1200 ; prime by switching length
-G0 X{145-130-10 if initial_extruder_nr<1 else 95+130+10} F7200 Y50 Z0.5 F7200
+G1 Y40 Z0.4 E0.25 F7200
 G92 E0
-G0 Y9.4 Z0.5 E3 F7200
-G{3 if initial_extruder_nr<1 else 2} X{145-130-5 if initial_extruder_nr<1 else 95+130+5} Y3.4 Z0.4 I-6 J0 F7200
+G1 Y30 E0.5 F7200
+G{3 if initial_extruder_nr<1 else 2} X{140-125-5 if initial_extruder_nr<1 else 100+125+5} Y20 Z0.4 I{10 if initial_extruder_nr<1 else -10} J0 F18000
+G0 X15 Y20 Z0.36 F18000 ;move to start position
+G0 F18000 ;set starting acceleration
 M104 T{initial_extruder_nr} S{material_print_temperature_layer_0, initial_extruder_nr} ; Start heating to first layer temp
-G0 X{145-130 if initial_extruder_nr<1 else 95+130} Y3.4 Z0.4 F7200
-G{3 if initial_extruder_nr<1 else 2} X{145-130+2 if initial_extruder_nr<1 else 95+130-2} Y5.4 Z0.31 I0 J2 F7200
-G0 X{145-130+2 if initial_extruder_nr<1 else 95+130-2} Y5.4 Z0.31 F7200 ; move if no arc support
-G1 Y10 F18000 ; break line
-G92 E0
-G1 Y50 E2 F1000 ; extrude line
-G92 E0
-G1 E-{retraction_amount, initial_extruder_nr} F1500 ; retract slightly
-G1 Y100 F18000 ; break line
-; move to expected start corner
-G1 X{5 if initial_extruder_nr<1 else machine_width-5} Z0.4 Y112
-G1 Y5
-G0 X5 Y5 ; move to start
+
 M355 S1 P150; Turn on case light brighter
 ;end of DXUv2 prime routine
