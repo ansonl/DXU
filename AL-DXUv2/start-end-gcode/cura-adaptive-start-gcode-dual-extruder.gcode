@@ -48,8 +48,8 @@ M355 S1 P25 ; Turn on case light dim
 M190 S{material_bed_temperature_layer_0}
 G28 ; Home all
 G29 ; Run automatic bed leveling. Comment this line out if auto bed leveling is not desired.
-M104 T0 S{material_standby_temperature, 0} ; Preheat T0 to standby temp
-M104 T1 S{material_standby_temperature, 1} ; Preheat T1 to standby temp
+M104 T{0 if initial_extruder_nr>0 else 1} S{material_standby_temperature if extruders_enabled_count > 1 else 0, 0 if initial_extruder_nr>0 else 1} ; Preheat not initial extruder to standby temp
+M104 T{initial_extruder_nr} S{material_standby_temperature, initial_extruder_nr} ; Preheat initial extruder to standby temp
 G21 ; Metric values
 G90 ; Absolute positioning
 M82 ; Set extruder to absolute mode
@@ -62,30 +62,30 @@ G1 Y150 F7200
 ; Prime routine for nozzle that is NOT the initial extruder first
 ; ----
 T{0 if initial_extruder_nr>0 else 1} ; switch to NOT initial_extruder_nr nozzle
-M104 T{0 if initial_extruder_nr>0 else 1} S{material_final_print_temperature, 0 if initial_extruder_nr>0 else 1} ; Start heating up the NOT initial extruder
+M104 T{0 if initial_extruder_nr>0 else 1} S{material_final_print_temperature if extruders_enabled_count > 1 else 0, 0 if initial_extruder_nr>0 else 1} ; Start heating up the NOT initial extruder
 G0 Z10 F2400 ; move the platform down to 10mm
-M109 T{0 if initial_extruder_nr>0 else 1} S{material_print_temperature, 0 if initial_extruder_nr>0 else 1} ; Heat up and wait for not initial extruder
+M109 T{0 if initial_extruder_nr>0 else 1} S{material_print_temperature if extruders_enabled_count > 1 else 0, 0 if initial_extruder_nr>0 else 1} ; Heat up and wait for not initial extruder
 G0 Y150 F7200 ; Move printhead to safe Y location to move right.
 G0 X{machine_width-5 if initial_extruder_nr>0 else 5+18} Y1 F7200 ;{machine_nozzle_offset_x,1} cannot be nested so 18 is hardcoded
 G0 X{140 if initial_extruder_nr>0 else 100} Z0.31 F2400 ; lower nozzle
 G92 E0 ; reset E location
-G1 X{140-125 if initial_extruder_nr>0 else 100+125} E{switch_extruder_retraction_amount, initial_extruder_nr} F1500
+G1 X{140-125 if initial_extruder_nr>0 else 100+125} E{switch_extruder_retraction_amount if extruders_enabled_count > 1 else 0, initial_extruder_nr} F1500
 G0 Y1 F7200
 G92 E0
-G{2 if initial_extruder_nr>0 else 3} X{140-125-2.5 if initial_extruder_nr>0 else 100+125+2.5} Y3.5 I0 J2.5 E0.04 F7200
+G{2 if initial_extruder_nr>0 else 3} X{140-125-2.5 if initial_extruder_nr>0 else 100+125+2.5} Y3.5 I0 J2.5 E{0.04 if extruders_enabled_count > 1 else 0} F7200
 G92 E0
-G1 E1.65 Y17.5
+G1 E{1.65 if extruders_enabled_count > 1 else 0} Y17.5
 G92 E0
-G{3 if initial_extruder_nr>0 else 2} X{140-125-5 if initial_extruder_nr>0 else 100+125+5} Y20 I{-2.5 if initial_extruder_nr>0 else 2.5} J0 E0.04 F7200
+G{3 if initial_extruder_nr>0 else 2} X{140-125-5 if initial_extruder_nr>0 else 100+125+5} Y20 I{-2.5 if initial_extruder_nr>0 else 2.5} J0 E{0.04 if extruders_enabled_count > 1 else 0} F7200
 G92 E0
-G1 X{140-125-7.5 if initial_extruder_nr>0 else 100+125+7.5} Y20 E.3
+G1 X{140-125-7.5 if initial_extruder_nr>0 else 100+125+7.5} Y20 E{0.3 if extruders_enabled_count > 1 else 0}
 G92 E0
-G{2 if initial_extruder_nr>0 else 3} X{140-125-10 if initial_extruder_nr>0 else 100+125+10} Y22.5 I0 J2.5 E0.04 F7200
+G{2 if initial_extruder_nr>0 else 3} X{140-125-10 if initial_extruder_nr>0 else 100+125+10} Y22.5 I0 J2.5 E{0.04 if extruders_enabled_count > 1 else 0} F7200
 G92 E0
-G1 Y70 E3.2 F1000 ; intro line
+G1 Y70 E{3.2 if extruders_enabled_count > 1 else 0} F1000 ; intro line
 M104 T{0 if initial_extruder_nr>0 else 1} S{material_standby_temperature if extruders_enabled_count > 1 else 0, 0 if initial_extruder_nr>0 else 1}
 G92 E0
-G1 E-{switch_extruder_retraction_amount, 0 if initial_extruder_nr>0 else 1} F1200 ; retract
+G1 E-{switch_extruder_retraction_amount if extruders_enabled_count > 1 else 0, 0 if initial_extruder_nr>0 else 1} F1200 ; retract
 G0 Y105 F18000 ; break line
 G0 Y150 Z10 F2400 ; raise nozzle
 
