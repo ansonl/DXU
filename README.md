@@ -10,6 +10,8 @@
 
 ![DXU front](gallery/DXU-front.JPG)
 
+![DXUv2 bottom](gallery/UM2-motherboard-cover.jpg)
+
 ### Improved/Updated DXU resources are in the `AL-*` folders. 
 
 ## Notes for original DXU
