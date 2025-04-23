@@ -30,7 +30,7 @@
 
 ## Cura profile notes
 
-I have not had time to update all the downloadable Cura profiles with the better adaptive start/end gcode located in `AL-DXUv2/start-end-gcode`. Please copy and paste them into your Cura printer settings to use them.
+I have not had time to update all the downloadable Cura profiles with the [better adaptive start/end gcode](https://ansonliu.com/2024/10/cura-adaptive-dual-extruder-start-gcode/) located in `AL-DXUv2/start-end-gcode`. Please copy and paste them into your Cura printer settings to use them.
 
 ### DISCUSSION:
 https://community.ultimaker.com/topic/24553-dxu-another-dual-extrusion-upgrade-for-um2/
